@@ -1,0 +1,51 @@
+---
+import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
+
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Service from "../components/Service.astro";
+import Experience from "../components/Experience.astro";
+import Reviews from "../components/Reviews.astro";
+import Education from "../components/Education.astro";
+import Tools from "../components/Tools.astro";
+import { personal } from "../config";
+---
+
+<Layout>
+    <Header />
+
+    <!-- About Hero -->
+    <section class="py-16 px-5">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-3xl font-mono text-gray-400">$</span>
+                <h1 class="text-4xl md:text-5xl font-bold">About Me</h1>
+            </div>
+            <p class="text-xl text-gray-600 max-w-2xl">
+                Software Engineer passionate about building scalable systems,
+                distributed architectures, and AI-powered applications.
+            </p>
+            <div class="flex gap-4 mt-6 font-mono text-sm">
+                <a
+                    href={personal.github}
+                    target="_blank"
+                    class="hover:underline">GitHub ↗</a
+                >
+                <a
+                    href={personal.linkedin}
+                    target="_blank"
+                    class="hover:underline">LinkedIn ↗</a
+                >
+                <a href={personal.email} class="hover:underline">Email ↗</a>
+            </div>
+        </div>
+    </section>
+
+    <Tools />
+    <Service />
+    <Education />
+    <Experience />
+    <Reviews />
+    <Footer />
+</Layout>

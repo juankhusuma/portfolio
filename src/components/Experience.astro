@@ -1,0 +1,46 @@
+---
+import { experience } from '../config'
+---
+
+<section class="py-20 px-5" id="experience">
+    <div class="max-w-4xl mx-auto">
+      <div class="flex items-center gap-4 mb-10">
+        <span class="text-2xl font-mono text-gray-400">//</span>
+        <h1 class="text-4xl font-medium">Work Experience</h1>
+      </div>
+      
+      <div class="space-y-8">
+        {experience.map((job, index) => (
+          <div class="relative pl-8 border-l-2 border-black pb-8 last:pb-0">
+            <!-- Timeline dot -->
+            <div class="absolute -left-[9px] top-0 w-4 h-4 bg-black rounded-full border-4 border-white"></div>
+            
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-3">
+              <div>
+                <h3 class="text-xl font-bold">{job.role}</h3>
+                {job.companyUrl ? (
+                  <a href={job.companyUrl} target="_blank" class="text-lg text-gray-600 hover:underline">
+                    @ {job.company} ↗
+                  </a>
+                ) : (
+                  <span class="text-lg text-gray-600">@ {job.company}</span>
+                )}
+              </div>
+              <span class="text-sm font-mono bg-gray-100 px-3 py-1 rounded whitespace-nowrap self-start">
+                {job.period}
+              </span>
+            </div>
+            
+            <ul class="space-y-2">
+              {job.highlights.map(highlight => (
+                <li class="flex items-start gap-2">
+                  <span class="text-gray-400 font-mono mt-1">→</span>
+                  <span>{highlight}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+</section>
