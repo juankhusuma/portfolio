@@ -8,9 +8,13 @@ import Tools from "../components/Tools.astro";
 import Footer from "../components/Footer.astro";
 import CallToAction from "../components/CallToAction.astro";
 import Works from "../components/Works.astro";
+import { personal } from "../config";
 ---
 
-<Layout>
+<Layout
+  title={`${personal.name} | ${personal.title}`}
+  description={personal.tagline}
+>
   <Header />
   <Hero />
   <Tools />

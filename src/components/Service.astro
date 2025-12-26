@@ -17,17 +17,17 @@ const iconMap: Record<string, string> = {
     src={svgPinkStar.src}
     alt="svg"
     width="80"
-    class="absolute -right-8 bottom-0"
+    class="absolute -right-8 bottom-0 animate-pulse"
   />
 
   <div class="max-w-4xl mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-[60%_40%] py-10 relative">
-      <div class="flex items-end">
-        <h1 class="text-4xl">
+      <div class="flex items-end reveal-on-scroll">
+        <h1 class="text-4xl md:text-5xl font-medium">
           What I bring to the table as a Software Engineer
         </h1>
         <svg
-          class="size-20"
+          class="size-20 animate-bounce"
           viewBox="0 0 37 35"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +51,7 @@ const iconMap: Record<string, string> = {
       >
         {
           stats.map((item) => (
-            <div class="flex flex-col p-3 md:p-6  md:border-b-2 last:border-none">
+            <div class="reveal-on-scroll flex flex-col p-3 md:p-6  md:border-b-2 last:border-none hover:bg-white transition-colors duration-300">
               <h1 class="text-2xl font-medium">{item.value}</h1>
               <p class="text-sm">{item.name}</p>
             </div>
@@ -63,8 +63,10 @@ const iconMap: Record<string, string> = {
       >
         {
           skills.map((item) => (
-            <div class="flex flex-col gap-2 p-4 md:p-6 border-l-2 border-b-2">
-              <i class={`${iconMap[item.icon] || "ri-code-line"} text-4xl`} />
+            <div class="reveal-on-scroll flex flex-col gap-2 p-4 md:p-6 border-l-2 border-b-2 hover:bg-white hover:shadow-lg transition-all duration-300 group cursor-default">
+              <i
+                class={`${iconMap[item.icon] || "ri-code-line"} text-4xl group-hover:scale-110 transition-transform duration-300`}
+              />
               <h3 class="text-xl font-medium">{item.name}</h3>
               <p>{item.desc}</p>
             </div>

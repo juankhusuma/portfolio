@@ -4,41 +4,49 @@ import { experience } from '../config'
 
 <section class="py-20 px-5" id="experience">
     <div class="max-w-4xl mx-auto">
-      <div class="flex items-center gap-4 mb-10">
-        <span class="text-2xl font-mono text-gray-400">//</span>
-        <h1 class="text-4xl font-medium">Work Experience</h1>
+      <div class="flex items-center gap-4 mb-14 reveal-on-scroll">
+        <span class="text-3xl md:text-4xl font-mono text-gray-400">//</span>
+        <h1 class="text-4xl md:text-5xl font-medium">Work Experience</h1>
       </div>
       
-      <div class="space-y-8">
+      <div class="relative border-l-2 border-black ml-4 md:ml-10 space-y-12">
         {experience.map((job, index) => (
-          <div class="relative pl-8 border-l-2 border-black pb-8 last:pb-0">
+          <div class="reveal-on-scroll relative pl-8 md:pl-12">
             <!-- Timeline dot -->
-            <div class="absolute -left-[9px] top-0 w-4 h-4 bg-black rounded-full border-4 border-white"></div>
+            <div class="absolute -left-[9px] top-6 w-4 h-4 bg-white rounded-full border-4 border-black transition-transform duration-300 hover:scale-150 z-10"></div>
             
-            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-3">
-              <div>
-                <h3 class="text-xl font-bold">{job.role}</h3>
-                {job.companyUrl ? (
-                  <a href={job.companyUrl} target="_blank" class="text-lg text-gray-600 hover:underline">
-                    @ {job.company} ↗
-                  </a>
-                ) : (
-                  <span class="text-lg text-gray-600">@ {job.company}</span>
-                )}
-              </div>
-              <span class="text-sm font-mono bg-gray-100 px-3 py-1 rounded whitespace-nowrap self-start">
-                {job.period}
-              </span>
+            <!-- Card -->
+            <div class="bg-white border-2 border-black p-6 md:p-8 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300 relative group">
+                
+                <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6 border-b-2 border-gray-100 pb-4">
+                  <div>
+                    <h3 class="text-2xl font-bold">{job.role}</h3>
+                    {job.companyUrl ? (
+                      <a href={job.companyUrl} target="_blank" class="text-lg font-medium text-gray-600 hover:text-black hover:underline decoration-2 underline-offset-4 transition-colors">
+                        @ {job.company} ↗
+                      </a>
+                    ) : (
+                      <span class="text-lg font-medium text-gray-600">@ {job.company}</span>
+                    )}
+                  </div>
+                  <span class="inline-block bg-[var(--yellow)] px-3 py-1 text-sm font-mono border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] whitespace-nowrap self-start transform -rotate-1 group-hover:rotate-0 transition-transform">
+                    {job.period}
+                  </span>
+                </div>
+                
+                <ul class="space-y-3">
+                  {job.highlights.map(highlight => (
+                    <li class="flex items-start gap-3">
+                      <span class="text-[var(--yellow)] font-black mt-[2px]">></span>
+                      <span class="text-gray-700 leading-relaxed font-medium">{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <!-- Decorative corner -->
+                <div class="absolute top-2 right-2 w-2 h-2 bg-black opacity-20"></div>
+                <div class="absolute bottom-2 left-2 w-2 h-2 bg-black opacity-20"></div>
             </div>
-            
-            <ul class="space-y-2">
-              {job.highlights.map(highlight => (
-                <li class="flex items-start gap-2">
-                  <span class="text-gray-400 font-mono mt-1">→</span>
-                  <span>{highlight}</span>
-                </li>
-              ))}
-            </ul>
           </div>
         ))}
       </div>

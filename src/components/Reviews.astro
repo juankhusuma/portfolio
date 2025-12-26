@@ -14,10 +14,10 @@ const rotations = [
 
 <section class="py-20">
   <div class="max-w-4xl mx-auto px-10 overflow-hidden">
-    <div class="flex items-center gap-4 mb-10">
+    <div class="flex items-center gap-4 mb-10 reveal-on-scroll">
       <span class="text-2xl font-mono text-gray-400">//</span>
-      <h1 class="text-4xl font-medium">Awards & Achievements</h1>
-      <img src={svgNew.src} alt="arrow" width="40" />
+      <h1 class="text-4xl md:text-5xl font-medium">Awards & Achievements</h1>
+      <img src={svgNew.src} alt="arrow" width="40" class="animate-bounce" />
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -26,7 +26,7 @@ const rotations = [
           <a
             href={award.certificateUrl}
             target="_blank"
-            class={`flex flex-col gap-3 p-6 bg-white border-2 shadow-[6px_6px_0px_rgba(0,0,0,0.3)] transition-all hover:shadow-[8px_8px_0px_rgba(0,0,0,0.4)] ${rotations[index % rotations.length]}`}
+            class={`reveal-on-scroll flex flex-col gap-3 p-6 bg-white border-2 shadow-[6px_6px_0px_rgba(0,0,0,0.3)] transition-all duration-300 hover:shadow-[10px_10px_0px_rgba(0,0,0,0.5)] hover:-translate-y-1 ${rotations[index % rotations.length]}`}
           >
             <div class="flex items-start justify-between">
               <span class="text-4xl">{award.icon}</span>
@@ -36,7 +36,7 @@ const rotations = [
             </div>
             <h3 class="text-xl font-bold">{award.title}</h3>
             <p class="text-gray-600">{award.description}</p>
-            <span class="text-sm text-gray-400 hover:text-black">
+            <span class="text-sm text-gray-400 group-hover:text-black font-mono mt-2 block">
               View Certificate ↗
             </span>
           </a>

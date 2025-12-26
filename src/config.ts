@@ -138,24 +138,28 @@ export const projects = [
         desc: "Legal AI search engine for Indonesian documents • Next.js, Python, RAG",
         cover: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&h=600&fit=crop",
         link: "https://chat.lexin.cs.ui.ac.id/",
+        blogLink: "#",
     },
     {
         name: "FML Transpiler",
         desc: "Functional frontend framework compiled to vanilla JS • Haskell, TypeScript",
         cover: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop",
         link: "https://github.com/funcml/fml_transpiler",
+        blogLink: "#",
     },
     {
         name: "Navigo",
         desc: "AI-powered legal solution for MSMEs • 1st Place GEMASTIK XVII",
         cover: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=600&fit=crop",
         link: "#",
+        blogLink: "#",
     },
     {
         name: "EmpowerU&I",
         desc: "Mental health platform backend • Nest.js, GraphQL, PostgreSQL",
         cover: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=600&fit=crop",
         link: "https://www.empoweruni.com/",
+        blogLink: "#",
     },
 ];
 
@@ -202,7 +206,6 @@ export const navigation = [
     { name: "Home", path: "/", target: "_self" },
     { name: "About", path: "/about/", target: "_self" },
     { name: "Blog", path: "/blog/", target: "_self" },
-    { name: "Contact", path: "/#hire", target: "_self" },
 ];
 
 // ============================================================================

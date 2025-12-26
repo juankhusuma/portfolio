@@ -9,35 +9,140 @@ import Experience from "../components/Experience.astro";
 import Reviews from "../components/Reviews.astro";
 import Education from "../components/Education.astro";
 import Tools from "../components/Tools.astro";
+import Bars from "../components/Bars.astro";
 import { personal } from "../config";
+
+import svgRedStar from "../assets/red-star.svg";
+import svgIdea from "../assets/idea.svg";
+import svgArrow from "../assets/arrow.svg";
+import svgPinkStar from "../assets/pink-star.svg";
+import svgString from "../assets/string.svg";
 ---
 
-<Layout>
+<Layout
+    title={`About Me | ${personal.name}`}
+    description={`Learn about ${personal.name}'s experience, education, and skills in software engineering.`}
+>
     <Header />
 
     <!-- About Hero -->
-    <section class="py-16 px-5">
-        <div class="max-w-4xl mx-auto">
-            <div class="flex items-center gap-3 mb-4">
-                <span class="text-3xl font-mono text-gray-400">$</span>
-                <h1 class="text-4xl md:text-5xl font-bold">About Me</h1>
-            </div>
-            <p class="text-xl text-gray-600 max-w-2xl">
-                Software Engineer passionate about building scalable systems,
-                distributed architectures, and AI-powered applications.
-            </p>
-            <div class="flex gap-4 mt-6 font-mono text-sm">
-                <a
-                    href={personal.github}
-                    target="_blank"
-                    class="hover:underline">GitHub ↗</a
-                >
-                <a
-                    href={personal.linkedin}
-                    target="_blank"
-                    class="hover:underline">LinkedIn ↗</a
-                >
-                <a href={personal.email} class="hover:underline">Email ↗</a>
+    <section class="py-20 px-5 relative overflow-hidden">
+        <img
+            src={svgPinkStar.src}
+            alt="start"
+            width="50"
+            class="absolute top-10 right-10 hidden md:block animate-pulse"
+        />
+
+        <div class="max-w-5xl mx-auto relative">
+            <div
+                class="grid grid-cols-1 md:grid-cols-[55%_45%] items-center gap-10"
+            >
+                <!-- Text Content -->
+                <div class="relative z-10 order-2 md:order-1">
+                    <div class="flex items-center gap-3 mb-8 relative">
+                        <!-- Decorative elements near title -->
+                        <img
+                            src={svgIdea.src}
+                            width="60"
+                            class="absolute -top-12 -left-16 hidden md:block -rotate-12"
+                            alt="idea"
+                        />
+
+                        <span class="text-4xl font-mono text-gray-400">//</span>
+                        <h1 class="text-5xl font-medium relative">
+                            <span class="relative z-10">About Me</span>
+                            <span
+                                class="absolute bg-[var(--yellow)] w-full h-[40%] left-0 bottom-2 z-0"
+                            ></span>
+                        </h1>
+                    </div>
+
+                    <p
+                        class="text-xl md:text-2xl text-gray-900 font-medium leading-relaxed font-space mb-10"
+                    >
+                        Software Engineer passionate about building <span
+                            class="bg-gray-100 px-1 border-b-4 border-black"
+                            >scalable systems</span
+                        >, distributed architectures, and AI-powered
+                        applications.
+                    </p>
+
+                    <!-- Socials with brutalist flare -->
+                    <div class="flex flex-wrap gap-4 relative z-10">
+                        <a
+                            href={personal.github}
+                            target="_blank"
+                            class="group flex items-center justify-center w-14 h-14 bg-white border-2 border-black
+                                   shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
+                            aria-label="GitHub"
+                        >
+                            <i
+                                class="ri-github-fill text-3xl group-hover:scale-110 transition-transform"
+                            ></i>
+                        </a>
+                        <a
+                            href={personal.linkedin}
+                            target="_blank"
+                            class="group flex items-center justify-center w-14 h-14 bg-white border-2 border-black
+                                   shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
+                            aria-label="LinkedIn"
+                        >
+                            <i
+                                class="ri-linkedin-fill text-3xl group-hover:scale-110 transition-transform"
+                            ></i>
+                        </a>
+                        <a
+                            href={personal.email}
+                            class="group flex items-center justify-center w-14 h-14 bg-white border-2 border-black
+                                   shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
+                            aria-label="Email"
+                        >
+                            <i
+                                class="ri-mail-send-fill text-3xl group-hover:scale-110 transition-transform"
+                            ></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Image Content -->
+                <div class="relative order-1 md:order-2">
+                    <img
+                        src={svgArrow.src}
+                        width="100"
+                        class="absolute -top-10 -left-10 rotate-[-10deg] hidden md:block z-20"
+                        alt="arrow"
+                    />
+                    <img
+                        src={svgString.src}
+                        width="50"
+                        alt="string"
+                        class="absolute -top-10 -right-5 z-10"
+                    />
+
+                    <div class="relative p-6 bg-white rotate-2">
+                        <div
+                            id="kelar"
+                            class="w-full h-[350px] border-2 border-black bg-gray-200"
+                        >
+                        </div>
+                        <Bars />
+
+                        <!-- Decorative corner boxes -->
+                        <div class="absolute -top-2 -right-2 w-4 h-4 bg-black">
+                        </div>
+                        <div
+                            class="absolute -bottom-2 -left-2 w-4 h-4 bg-black"
+                        >
+                        </div>
+                    </div>
+
+                    <img
+                        src={svgRedStar.src}
+                        alt="red-star"
+                        class="absolute w-5 -bottom-8 -right-4 z-10"
+                    />
+                </div>
             </div>
         </div>
     </section>
@@ -49,3 +154,11 @@ import { personal } from "../config";
     <Reviews />
     <Footer />
 </Layout>
+
+<style>
+    #kelar {
+        background-image: url("/kelar.jpeg");
+        background-position: center;
+        background-size: cover;
+    }
+</style>
