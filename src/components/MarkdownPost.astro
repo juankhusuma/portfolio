@@ -12,6 +12,7 @@ const { frontmatter } = Astro.props;
 <Layout
     title={`${frontmatter.title} | Blog`}
     description={frontmatter.description || `Read about ${frontmatter.title}`}
+    image={frontmatter.image?.url}
 >
     <AppHeader />
 
@@ -38,7 +39,7 @@ const { frontmatter } = Astro.props;
                         <img
                             src={frontmatter.image.url}
                             alt={frontmatter.image.alt || frontmatter.title}
-                            class="w-full h-full object-cover"
+                            class="w-full h-full object-cover pastel-filter"
                         />
                         <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
                     </div>

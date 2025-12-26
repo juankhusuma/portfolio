@@ -19,6 +19,8 @@ const canonicalURL = new URL(
 	Astro.url.pathname,
 	Astro.site || personal.website,
 );
+
+const ogImage = new URL(image, Astro.url.origin).href;
 ---
 
 <!doctype html>
