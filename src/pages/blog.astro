@@ -4,36 +4,140 @@ import Layout from "../layouts/Layout.astro";
 
 import AppHeader from '../components/Header.astro';
 import AppFooter from '../components/Footer.astro';
+import svgNew from "../assets/new.svg";
+
+// Get all markdown posts
 const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
 
+// Extract unique tags
+const allTags = [...new Set(allPosts.flatMap((post: any) => post.frontmatter.tags || []))].filter(tag => tag);
 ---
 
-
-<Layout>
+<Layout title="Blog | Juan Dharmananda Khusuma" description="Thoughts on software engineering, distributed systems, and AI.">
     <AppHeader />
     
-    <section class="py-40">
-        <div class="max-w-3xl mx-auto">
-          <div class="text-center mb-15">
-            <h1 class="title text-5xl font-black">Blog articles</h1>
+    <section class="py-20 px-5 min-h-screen">
+        <div class="max-w-6xl mx-auto">
+          <!-- Header -->
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-16 reveal-on-scroll">
+            <div class="flex items-center gap-4">
+                <span class="text-3xl md:text-5xl font-mono text-gray-400">//</span>
+                <h1 class="text-5xl md:text-6xl font-medium">Blog Articles</h1>
+                <img src={svgNew.src} alt="arrow" width="50" class="animate-bounce hidden md:block" />
+            </div>
+
+            <!-- Tag Filter -->
+            <div class="flex flex-wrap gap-2" id="tag-filters">
+                <button class="tag-btn active px-4 py-2 border-2 border-black bg-black text-white font-mono text-sm font-bold hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] transition-all" data-tag="all">
+                    All
+                </button>
+                {allTags.map((tag) => (
+                    <button class="tag-btn px-4 py-2 border-2 border-black bg-white font-mono text-sm font-bold hover:bg-[var(--yellow)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] transition-all" data-tag={tag}>
+                        {tag}
+                    </button>
+                ))}
+            </div>
           </div>
-          <div class="p-3">
-            {allPosts.map(({url, frontmatter, rawContent }: any) => 
-               <a href={url} class="flex gap-3 items-center bg-white p-5 border-2 mb-5 transition-all duration-200 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.3)]">
-                <div>
-                  <div class="w-[200px] h-[130px] overflow-hidden border-2">
-                  <img src={frontmatter?.image?.url} alt="" class="w-full h-full object-cover" />
+
+          <!-- Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="posts-grid">
+            {allPosts.map(({url, frontmatter }: any) => (
+               <a 
+                href={url} 
+                class="post-item reveal-on-scroll group flex flex-col bg-white border-2 border-black p-4 shadow-[6px_6px_0px_rgba(0,0,0,1)] hover:shadow-[10px_10px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300 h-full"
+                data-tags={frontmatter.tags?.join(',')}
+               >
+                
+                <!-- Image -->
+                <div class="w-full h-[220px] overflow-hidden border-2 border-black mb-5 bg-gray-100 relative">
+                  {frontmatter.image?.url ? (
+                    <img src={frontmatter.image.url} alt={frontmatter.image.alt || frontmatter.title} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  ) : (
+                    <div class="w-full h-full flex items-center justify-center bg-gray-200">
+                        <span class="text-5xl">📝</span>
+                    </div>
+                  )}
                 </div>
-                </div>
-                <div class="flex flex-col gap-2">
-                    <h1 class="line-clamp-2 text-xl font-bold">{frontmatter.title}</h1>
-                    <div class="line-clamp-2" set:html={rawContent}></div>
+
+                <div class="flex flex-col gap-3 flex-1">
+                    <div class="flex items-center gap-2 text-sm text-gray-500 font-mono">
+                        <span>{frontmatter.pubDate}</span>
+                        <span>•</span>
+                        <span>{frontmatter.author?.name || 'Juan'}</span>
+                    </div>
+                    
+                    <h2 class="text-2xl font-bold leading-tight group-hover:underline decoration-2 underline-offset-4 line-clamp-3">
+                        {frontmatter.title}
+                    </h2>
+
+                    <!-- All Tags -->
+                    {frontmatter.tags && frontmatter.tags.filter((t: string) => t && t.trim()).length > 0 && (
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            {frontmatter.tags.filter((t: string) => t && t.trim()).map((tag: string) => (
+                                <span class="text-xs font-mono bg-gray-100 border border-black px-1.5 py-0.5">
+                                    #{tag}
+                                </span>
+                            ))}
+                        </div>
+                    )}
+                    
+                    <div class="mt-auto pt-4 flex items-center text-sm font-bold">
+                        Read Article <i class="ri-arrow-right-line ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
                 </div>
                </a>
-             )}
+             ))}
+          </div>
+          
+          <!-- Empty State -->
+          <div id="empty-state" class="hidden text-center py-20">
+            <span class="text-6xl block mb-4">🤷‍♂️</span>
+            <h3 class="text-2xl font-bold">No posts found for this tag.</h3>
           </div>
         </div>
     </section>
 
     <AppFooter />
 </Layout>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const filterBtns = document.querySelectorAll('.tag-btn');
+        const posts = document.querySelectorAll('.post-item');
+        const emptyState = document.getElementById('empty-state');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-black', 'text-white');
+                    b.classList.add('bg-white', 'text-black');
+                    b.classList.add('hover:bg-[var(--yellow)]');
+                });
+                btn.classList.remove('bg-white', 'text-black', 'hover:bg-[var(--yellow)]');
+                btn.classList.add('bg-black', 'text-white');
+
+                const selectedTag = btn.getAttribute('data-tag');
+                let visibleCount = 0;
+
+                posts.forEach(post => {
+                    const postTags = (post.getAttribute('data-tags') || '').split(',');
+                    
+                    if (selectedTag === 'all' || postTags.includes(selectedTag)) {
+                        (post as HTMLElement).style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        (post as HTMLElement).style.display = 'none';
+                    }
+                });
+
+                // Show empty state if no posts visible
+                if (visibleCount === 0) {
+                    emptyState?.classList.remove('hidden');
+                } else {
+                    emptyState?.classList.add('hidden');
+                }
+            });
+        });
+    });
+</script>

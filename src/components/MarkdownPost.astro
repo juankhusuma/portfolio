@@ -1,44 +1,221 @@
 ---
-import '../styles/global.css'
-import { Image } from 'astro:assets';
-import Layout from '../layouts/Layout.astro';
+import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
+import AppHeader from "./Header.astro";
+import AppFooter from "./Footer.astro";
+import CallToAction from "./CallToAction.astro";
 
-import AppHeader from './Header.astro';
-import AppFooter from './Footer.astro';
-import CallToAction from './CallToAction.astro';
-
-const styleSheet = {
-    actions: 'text-gray-500 flex items-center gap-2 hover:text-gray-700',
-}
-
+// Props from markdown frontmatter
 const { frontmatter } = Astro.props;
 ---
 
-<Layout>
+<Layout
+    title={`${frontmatter.title} | Blog`}
+    description={frontmatter.description || `Read about ${frontmatter.title}`}
+>
+    <AppHeader />
 
-<AppHeader />
+    <article class="py-20 px-5 min-h-screen">
+        <!-- Breadcrumb -->
+        <div class="max-w-7xl mx-auto mb-8 reveal-on-scroll">
+            <a
+                href="/blog"
+                class="inline-flex items-center gap-2 text-gray-500 hover:text-black font-mono text-sm transition-colors group"
+            >
+                <i
+                    class="ri-arrow-left-line group-hover:-translate-x-1 transition-transform"
+                ></i> Back to Blog
+            </a>
+        </div>
 
-<section class="mb-30 p-3">
-    <div class="max-w-3xl mx-auto p-3 bg-white flex flex-col gap-7 border-3 mt-10">
-        <Image src={frontmatter.image.url} alt="Head" width={100} height={100} class="w-full border-2" />
-        <h1 class="title text-4xl font-black">{frontmatter.title}</h1>
+        <div
+            class="max-w-7xl mx-auto bg-white border-2 border-black p-6 md:p-10 shadow-[8px_8px_0px_rgba(0,0,0,1)] reveal-on-scroll"
+        >
+            <!-- Featured Image -->
+            {
+                frontmatter.image?.url && (
+                    <div class="w-full aspect-video overflow-hidden border-2 border-black mb-8 relative group">
+                        <img
+                            src={frontmatter.image.url}
+                            alt={frontmatter.image.alt || frontmatter.title}
+                            class="w-full h-full object-cover"
+                        />
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+                    </div>
+                )
+            }
 
-        <div class="flex flex-col">
-            <div class="flex border-t border-b border-gray-100 mb-5 py-4">
-                <div class="flex-1 flex gap-6">
-                    <a href="#" class={styleSheet.actions}><i class="ri-thumb-up-line text-xl"></i> {frontmatter.likes}</a>
-                    <a href="#" class={styleSheet.actions}><i class="ri-chat-1-line text-xl"></i> {frontmatter.comments}</a>
+            <!-- Header -->
+            <header class="mb-10 border-b-2 border-gray-100 pb-8">
+                <div
+                    class="flex flex-wrap gap-4 mb-4 text-sm font-mono text-gray-500"
+                >
+                    <span class="flex items-center gap-1">
+                        <i class="ri-calendar-line"></i>
+                        {frontmatter.pubDate}
+                    </span>
+                    <span class="flex items-center gap-1">
+                        <i class="ri-user-3-line"></i>
+                        {frontmatter.author?.name || "Juan"}
+                    </span>
+                    {
+                        frontmatter.tags && (
+                            <span class="flex items-center gap-1">
+                                <i class="ri-price-tag-3-line" />{" "}
+                                {frontmatter.tags.join(", ")}
+                            </span>
+                        )
+                    }
                 </div>
-                <div class="flex gap-6">
-                    <a href="#" class={styleSheet.actions}><i class="ri-bookmark-line text-xl"></i> </a>
-                    <a href="#" class={styleSheet.actions}><i class="ri-share-forward-box-line text-xl"></i> </a>
+
+                <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6">
+                    {frontmatter.title}
+                </h1>
+
+                <!-- Article Actions -->
+                <div class="flex gap-4">
+                    <button
+                        id="share-btn"
+                        class="flex items-center gap-2 px-3 py-1 border-2 border-black bg-gray-50 hover:bg-[var(--yellow)] transition-all text-sm font-bold shadow-[2px_2px_0px_0px_black] active:translate-y-[2px] active:shadow-none"
+                    >
+                        <i id="share-icon" class="ri-share-forward-line"></i>
+                        <span id="share-text">Share</span>
+                    </button>
                 </div>
+            </header>
+
+            <script>
+                const shareBtn = document.getElementById("share-btn");
+                const shareIcon = document.getElementById("share-icon");
+                const shareText = document.getElementById("share-text");
+
+                shareBtn?.addEventListener("click", async () => {
+                    try {
+                        await navigator.clipboard.writeText(
+                            window.location.href,
+                        );
+
+                        // Visual feedback
+                        shareIcon?.classList.remove("ri-share-forward-line");
+                        shareIcon?.classList.add("ri-check-line");
+                        if (shareText) shareText.textContent = "Copied!";
+                        shareBtn?.classList.remove("bg-gray-50");
+                        shareBtn?.classList.add("bg-[var(--yellow)]");
+
+                        // Reset after 1 second
+                        setTimeout(() => {
+                            shareIcon?.classList.remove("ri-check-line");
+                            shareIcon?.classList.add("ri-share-forward-line");
+                            if (shareText) shareText.textContent = "Share";
+                            shareBtn?.classList.remove("bg-[var(--yellow)]");
+                            shareBtn?.classList.add("bg-gray-50");
+                        }, 1000);
+                    } catch (err) {
+                        console.error("Failed to copy:", err);
+                    }
+                });
+            </script>
+
+            <!-- Content -->
+            <div class="blog-content text-lg leading-relaxed text-gray-800">
+                <slot />
             </div>
-        <slot />
-    </div>
-</section>
+        </div>
+    </article>
 
-<CallToAction />
-<AppFooter />
-
+    <CallToAction />
+    <AppFooter />
 </Layout>
+
+<style is:global>
+    /* Custom Typography for Blog Content */
+    .blog-content h1,
+    .blog-content h2,
+    .blog-content h3,
+    .blog-content h4 {
+        margin-top: 2em;
+        margin-bottom: 0.8em;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    .blog-content h2 {
+        font-size: 1.875rem;
+    } /* text-3xl */
+    .blog-content h3 {
+        font-size: 1.5rem;
+    } /* text-2xl */
+
+    .blog-content p {
+        margin-bottom: 1.5em;
+    }
+
+    .blog-content ul {
+        list-style-type: disc;
+        padding-left: 1.5em;
+        margin-bottom: 1.5em;
+    }
+
+    .blog-content ol {
+        list-style-type: decimal;
+        padding-left: 1.5em;
+        margin-bottom: 1.5em;
+    }
+
+    .blog-content li {
+        margin-bottom: 0.5em;
+    }
+
+    .blog-content blockquote {
+        border-left: 4px solid black;
+        background-color: #f9fafb;
+        padding: 1em 1.5em;
+        font-style: italic;
+        margin: 2em 0;
+        border-radius: 0 4px 4px 0;
+    }
+
+    .blog-content a {
+        color: black;
+        text-decoration: underline;
+        text-decoration-color: var(--yellow);
+        text-decoration-thickness: 3px;
+        text-underline-offset: 3px;
+    }
+
+    .blog-content a:hover {
+        background-color: var(--yellow);
+    }
+
+    .blog-content img {
+        width: 100%;
+        height: auto;
+        border: 2px solid black;
+        margin: 2em 0;
+        box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    .blog-content pre {
+        background-color: #1a1a1a;
+        color: #f8f8f2;
+        padding: 1.5em;
+        border-radius: 4px;
+        border: 2px solid black;
+        overflow-x: auto;
+        margin: 2em 0;
+    }
+
+    .blog-content code {
+        font-family: "Space Mono", "Courier New", monospace;
+        background-color: #f3f4f6;
+        padding: 0.2em 0.4em;
+        border-radius: 4px;
+        font-size: 0.9em;
+    }
+
+    .blog-content pre code {
+        background-color: transparent;
+        padding: 0;
+        color: inherit;
+    }
+</style>

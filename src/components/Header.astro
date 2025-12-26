@@ -21,7 +21,7 @@ const { pathname } = Astro.url;
     />
 
     <div
-        class="flex border-3 border-black bg-white max-w-[310px] md:max-w-xl m-auto relative z-10"
+        class="flex border-3 border-black bg-white max-w-[400px] md:max-w-5xl m-auto relative z-10"
     >
         <!-- top boxes -->
         <div
@@ -56,20 +56,33 @@ const { pathname } = Astro.url;
             <ul class="hidden md:flex">
                 {
                     navigation.map((item) => (
-                        <li class="border-l-2 border-black p-3 py-4">
+                        <li class="border-l-2 border-black p-3 py-4 min-w-[75px]">
                             <a
                                 href={item.path}
                                 target={item.target}
-                                class="whitespace-nowrap relative flex items-center before:absolute before:left-0 before:bottom-1 before:h-[8px] before:w-0 before:bg-[var(--yellow)] before:transition-all before:duration-300 hover:before:w-full"
+                                class="whitespace-nowrap relative flex items-center before:absolute before:left-0 before:bottom-1 before:h-[8px] before:w-0 before:bg-[var(--yellow)] before:transition-all before:duration-300 hover:before:w-full text-center"
                             >
                                 <span class="relative z-5">
-                                    {item.name}{" "}
-                                    {pathname == item.path ? "//" : ""}
+                                    {pathname == item.path ? "//" : ""}{" "}
+                                    {item.name}
                                 </span>
                             </a>
                         </li>
                     ))
                 }
+                <li
+                    class="border-l-2 border-black p-3 py-4 bg-[var(--yellow)] hover:bg-black hover:text-white transition-colors group"
+                >
+                    <a
+                        href="/CV_Juan_Dharmananda_Khusuma.pdf"
+                        target="_blank"
+                        class="font-bold flex items-center gap-2"
+                    >
+                        Download CV <i
+                            class="ri-download-line group-hover:translate-y-1 transition-transform"
+                        ></i>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>
@@ -99,6 +112,15 @@ const { pathname } = Astro.url;
                 </li>
             ))
         }
+        <li class="py-3 mt-4">
+            <a
+                href="/CV_Juan_Dharmananda_Khusuma.pdf"
+                target="_blank"
+                class="p-3 px-6 whitespace-nowrap text-xl font-bold border-2 border-black bg-[var(--yellow)] shadow-[4px_4px_0px_0px_black] active:translate-y-[2px] active:shadow-none transition-all flex items-center gap-2"
+            >
+                Download CV <i class="ri-download-line"></i>
+            </a>
+        </li>
     </ul>
 </div>
 

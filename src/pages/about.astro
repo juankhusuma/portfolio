@@ -49,7 +49,7 @@ import svgString from "../assets/string.svg";
                             alt="idea"
                         />
 
-                        <span class="text-4xl font-mono text-gray-400">//</span>
+                        <span class="text-2xl font-mono text-gray-400">//</span>
                         <h1 class="text-5xl font-medium relative">
                             <span class="relative z-10">About Me</span>
                             <span
@@ -150,6 +150,68 @@ import svgString from "../assets/string.svg";
     <Tools />
     <Service />
     <Education />
+
+    <!-- Languages Section -->
+    <section class="py-16 px-5" id="languages">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex items-center gap-4 mb-8 reveal-on-scroll">
+                <span class="text-2xl font-mono text-gray-400">//</span>
+                <h2 class="text-5xl md:text-5xl font-medium">Languages</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Bahasa Indonesia -->
+                <div
+                    class="bg-white border-2 border-black p-6 shadow-[4px_4px_0px_rgba(0,0,0,1)] reveal-on-scroll hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300"
+                >
+                    <div class="flex items-center gap-6">
+                        <div class="text-6xl grayscale-0">🇮🇩</div>
+                        <div class="flex flex-col gap-2">
+                            <h3 class="text-2xl font-bold">Bahasa Indonesia</h3>
+                            <span
+                                class="self-start text-sm font-bold font-mono bg-black text-white px-3 py-1 border border-black transform -rotate-2"
+                            >
+                                NATIVE SPEAKER
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- English -->
+                <div
+                    class="bg-white border-2 border-black p-6 shadow-[4px_4px_0px_rgba(0,0,0,1)] reveal-on-scroll hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+                >
+                    <div class="flex items-center gap-6 mb-6">
+                        <div class="text-6xl">🇬🇧</div>
+                        <div class="flex flex-col gap-2">
+                            <h3 class="text-2xl font-bold">English</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="text-sm font-bold font-mono bg-[var(--yellow)] border-2 border-black px-2 py-1 transform rotate-1"
+                                >
+                                    IELTS 7.5
+                                </span>
+                                <span
+                                    class="text-sm font-bold font-mono bg-white border-2 border-black px-2 py-1 transform -rotate-1"
+                                >
+                                    CEFR C1
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a
+                        href="/ID19525512473-04-10-2025-ETRF.pdf"
+                        target="_blank"
+                        class="w-full text-center text-sm font-bold font-mono border-2 border-black py-2 bg-gray-50 hover:bg-[var(--yellow)] transition-colors shadow-[2px_2px_0px_0px_black] active:translate-y-[1px] active:shadow-none"
+                    >
+                        <i class="ri-file-paper-2-line mr-2"></i> View Certificate
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <Experience />
     <Reviews />
     <Footer />

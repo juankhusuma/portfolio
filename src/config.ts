@@ -145,7 +145,7 @@ export const projects = [
         desc: "Functional frontend framework compiled to vanilla JS • Haskell, TypeScript",
         cover: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop",
         link: "https://github.com/funcml/fml_transpiler",
-        blogLink: "#",
+        blogLink: "/posts/fml",
     },
     {
         name: "Navigo",
@@ -172,6 +172,7 @@ export const awards = [
         event: "GEMASTIK XVII",
         description: "Developed Navigo, an AI-powered integrated legal solution for MSMEs and independent creators.",
         certificateUrl: "https://drive.google.com/file/d/1CiPdnsT0oi5IaIZUOxhJH46RYIyFwg38/view",
+        caseStudyUrl: "#",
         icon: "🏆",
     },
     {
@@ -179,6 +180,7 @@ export const awards = [
         event: "GEMASTIK XV",
         description: "Developed Sensa Makara, a communication tool for people with ALS using computer vision.",
         certificateUrl: "https://drive.google.com/file/d/18K_RPcWvSoqoS1yYzTbsIvwiqQuhr6_G/view",
+        caseStudyUrl: "#",
         icon: "🥉",
     },
 ];
