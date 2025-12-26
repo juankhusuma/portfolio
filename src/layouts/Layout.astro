@@ -56,7 +56,26 @@ const canonicalURL = new URL(
 		<slot />
 	</body>
 </html>
-
+<script
+	src="https://cdn.amplitude.com/script/76eeebb949ce057dbc272314dbefbaa2.js"
+></script>
+<script>
+	window.amplitude.add(window.sessionReplay.plugin({ sampleRate: 1 }));
+	window.amplitude.init("76eeebb949ce057dbc272314dbefbaa2", {
+		fetchRemoteConfig: true,
+		autocapture: {
+			attribution: true,
+			fileDownloads: true,
+			formInteractions: true,
+			pageViews: true,
+			sessions: true,
+			elementInteractions: true,
+			networkTracking: true,
+			webVitals: true,
+			frustrationInteractions: true,
+		},
+	});
+</script>
 <script>
 	import { gsap } from "gsap";
 
